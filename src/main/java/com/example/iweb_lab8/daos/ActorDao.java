@@ -1,64 +1,71 @@
 package com.example.iweb_lab8.daos;
 
 import com.example.iweb_lab8.beans.Actor;
+import com.example.iweb_lab8.beans.Genero;
 import com.example.iweb_lab8.beans.Pelicula;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class ActorDao {
+public class ActorDao extends DaoBase {
 
-    /*public ArrayList<actor> listarActores(int idPelicula) {
+    public ArrayList<Actor> listarActores(int id) {
 
-        ArrayList<actor> listaActores = new ArrayList<>();
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        ArrayList<Actor> listaActores = new ArrayList<>();
 
-        String url = "jdbc:mysql://localhost:3306/mydb?serverTimezone=America/Lima";
-        String username = "root";
-        String password = "root";
+        /*String sql1="select e.titulo,p.idActor,a.Nombre,a.Apellido,a.anoNacimiento,a.premioOscar from actor a, protagonistas p, pelicula e where a.idActor=p.idActor AND e.idPelicula=p.idPelicula AND p.idPelicula=?;";*/
+        String sql="select p.idActor,a.Nombre,a.Apellido,a.anoNacimiento,a.premioOscar from actor a, protagonistas p where a.idActor=p.idActor AND p.idPelicula=?";
 
-        try {
-            Connection conn = DriverManager.getConnection(url, username, password);
-            Statement stmt = conn.createStatement();
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);) {
 
-            String sql = "SELECT A.*\n" +
-                    "FROM \n" +
-                    "(SELECT * FROM ACTOR ) AS A\n" +
-                    "INNER JOIN\n" +
-                    "(SELECT * FROM PROTAGONISTAS WHERE IDPELICULA = \n" +
-                    idPelicula +
-                    ") AS B\n" +
-                    "on a.idactor = b.idactor\n";
+            pstmt.setInt(1, id);
 
-
-            ResultSet rs = stmt.executeQuery(sql);
-
-            while (rs.next()) {
-                actor actuador = new actor();
-                int idActor = rs.getInt(1);
-                actuador.setIdActor(idActor);
-                String nombre = rs.getString("nombre");
-                actuador.setNombre(nombre);
-                String apellido = rs.getString("apellido");
-                actuador.setApellido(apellido);
-                int anoNacimiento = rs.getInt("anoNacimiento");
-                actuador.setAnoNacimiento(anoNacimiento);
-                boolean oscar = rs.getBoolean("premioOscar");
-                actuador.setPremioOscar(oscar);
-
-
-                listaActores.add(actuador);
-
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Actor actor= new Actor();
+                    actor.setIdActor(rs.getInt(1));
+                    actor.setNombre(rs.getString(2));
+                    actor.setApellido(rs.getString(3));
+                    actor.setAnoNacimiento(rs.getInt(4));
+                    actor.setPremioOscar(rs.getInt(5));
+                    listaActores.add(actor);
+                }
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+        }
+        return listaActores;
+    }
+
+    public void crearActor(Actor actor, int id) {
+        String sql = "insert into actor (idActor,Nombre,Apellido,anoNacimiento,premioOscar) values (?,?,?,?,?);";
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);) {
+
+            pstmt.setInt(1, actor.getIdActor());
+            pstmt.setString(2, actor.getNombre());
+            pstmt.setString(3, actor.getApellido());
+            pstmt.setInt(4, actor.getAnoNacimiento());
+            pstmt.setInt(5, actor.getPremioOscar());
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
-        return listaActores;
-    }*/
+        sql="insert into protagonistas (idPelicula,idActor) values (?,?);";
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);) {
+
+            pstmt.setInt(1, id);
+            pstmt.setInt(2, actor.getIdActor());
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

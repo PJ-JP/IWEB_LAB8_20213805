@@ -55,7 +55,7 @@
         </tr>--%>
         <tr>
             <th>Actores</th>
-            <td><a href="listaActores?idPelicula=<%=pelicula.getIdPelicula() %>">Ver Actores</a></td>
+            <td><a href="<%=request.getContextPath()%>/ActorServlet?action=read&id=<%=pelicula.getIdPelicula() %>">Ver Actores</a></td>
         </tr>
         <input type="hidden" name="action" value="editar">
         <button type="submit">Editar Pelicula</button>

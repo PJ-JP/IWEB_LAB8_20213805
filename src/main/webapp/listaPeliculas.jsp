@@ -56,7 +56,7 @@
             <td><%=pelicula.getRating()%>/10</td>
             <td><%=formatter.format(pelicula.getBoxOffice())%></td>
             <td><%=pelicula.getGenero().getNombre()%></td>
-            <td><a href="listaActores?idPelicula=<%= pelicula.getIdPelicula() %>">Ver Actores</a></td>
+            <td><a href="<%=request.getContextPath()%>/ActorServlet?action=read&id=<%= pelicula.getIdPelicula() %>">Ver Actores</a></td>
             <td> <a href="<%=request.getContextPath()%>/PeliculaServlet?action=del&id=<%= pelicula.getIdPelicula() %>" class="button-link">Borrar</a></td>
         </tr>
         <%}%>

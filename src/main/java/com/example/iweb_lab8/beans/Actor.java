@@ -4,7 +4,7 @@ public class Actor {
     private int idActor;
     private String nombre;
     private String apellido;
-    private String anoNacimiento;
+    private int anoNacimiento;
     private int premioOscar;
 
     public int getIdActor() {
@@ -31,11 +31,11 @@ public class Actor {
         this.apellido = apellido;
     }
 
-    public String getAnoNacimiento() {
+    public int getAnoNacimiento() {
         return anoNacimiento;
     }
 
-    public void setAnoNacimiento(String anoNacimiento) {
+    public void setAnoNacimiento(int anoNacimiento) {
         this.anoNacimiento = anoNacimiento;
     }
 
