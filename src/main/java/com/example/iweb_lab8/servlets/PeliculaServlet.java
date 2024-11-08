@@ -57,21 +57,22 @@ public class PeliculaServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         response.setContentType("text/html");
 
-        /*String action = request.getParameter("action");
+        String action = request.getParameter("action");
         PeliculaDao peliculaDao = new PeliculaDao();
+
         //listasDao listaDao = new listasDao();
         //ArrayList<genero> listaGeneros = listaDao.listarGeneros();
         //ArrayList<streaming> listaStreaming = listaDao.listarStraming();
 
         switch (action) {
-
-
             case "filtrar":
-
-                RequestDispatcher viewFiltro = request.getRequestDispatcher("listaPeliculas.jsp");
-                viewFiltro.forward(request,response);
+                String titulo = request.getParameter("titulo");
+                ArrayList<Pelicula> lista = peliculaDao.buscarTitle(titulo);
+                request.setAttribute("lista",lista);
+                request.setAttribute("busqueda",titulo);
+                request.getRequestDispatcher("listaPeliculas.jsp").forward(request,response);
                 break;
-
+            /*
             case "editar":
                 int idPelicula = Integer.parseInt(request.getParameter("idPelicula"));
                 String titulo = request.getParameter("titulo");
@@ -82,8 +83,8 @@ public class PeliculaServlet extends HttpServlet {
                 String genero = request.getParameter("genero");
                 peliculaDao.editarPelicula(idPelicula, titulo,director,anoPublicacion,rating,boxOffice);
                 response.sendRedirect(request.getContextPath()+"/listaPeliculas?action=listar");
-                break;
+                break;*/
         }
-        */
+
     }
 }

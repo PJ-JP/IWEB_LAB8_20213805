@@ -120,4 +120,35 @@ public class PeliculaDao extends DaoBase{
             throw new RuntimeException(e);
         }
     }
+    public ArrayList<Pelicula> buscarTitle(String busca){
+
+        ArrayList<Pelicula> lista = new ArrayList<>();
+
+        String sql = "select * from pelicula p, genero g where p.idGenero=g.idGenero and lower(p.titulo) like lower(?);";
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);){
+
+            pstmt.setString(1,"%" +busca+ "%");
+
+            try(ResultSet rs = pstmt.executeQuery()){
+                while (rs.next()) {
+                    Pelicula pelicula = new Pelicula();
+                    Genero genero = new Genero();
+                    pelicula.setIdPelicula(rs.getInt(1));
+                    pelicula.setTitulo(rs.getString(2));
+                    pelicula.setDirector(rs.getString(3));
+                    pelicula.setAnoPublicacion(rs.getInt(4));
+                    pelicula.setRating(rs.getDouble(5));
+                    pelicula.setBoxOffice(rs.getDouble(6));
+                    genero.setIdGenero(rs.getInt(8));
+                    genero.setNombre(rs.getString(9));
+                    pelicula.setGenero(genero);
+                    lista.add(pelicula);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return lista;
+    }
 }

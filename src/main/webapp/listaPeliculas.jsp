@@ -22,16 +22,17 @@
 <html>
 <head>
     <title>Peliculas</title>
+    <%--<meta name="viewport" content="width=device-width, initial-scale=1"--%>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+          crossorigin="anonymous">
 </head>
 <body>
     <h1>Lista de películas</h1>
-    <form action="listaPeliculas" method="POST">
-        <div class="combobox-container">
-            <input type="hidden" name="action" value="filtrar">
-            <button type="submit">Filtrar</button>
-            <form action="listaPeliculas?action=listar" method="GET">
-                <button type="submit">Limpiar</button>
-            </form>
+    <form action="<%=request.getContextPath()%>/PeliculaServlet?action=filtrar" method="POST">
+        <div style="display: flex; margin-right: 5px">
+            <label><input type="text" name="titulo" placeholder="Buscar..." value="<%= request.getAttribute("busqueda") != null ? request.getAttribute("busqueda") : "" %>"></label>
+            <button type="submit">Buscar</button>
         </div>
     </form>
 
@@ -57,7 +58,7 @@
             <td><%=formatter.format(pelicula.getBoxOffice())%></td>
             <td><%=pelicula.getGenero().getNombre()%></td>
             <td><a href="<%=request.getContextPath()%>/ActorServlet?action=read&id=<%= pelicula.getIdPelicula() %>">Ver Actores</a></td>
-            <td> <a href="<%=request.getContextPath()%>/PeliculaServlet?action=del&id=<%= pelicula.getIdPelicula() %>" class="button-link">Borrar</a></td>
+            <td> <a onclick="return confirm('¿Esta seguro de borrar?')" class="btn btn-danger" href="<%=request.getContextPath()%>/PeliculaServlet?action=del&id=<%= pelicula.getIdPelicula() %>">Borrar</a></td>
         </tr>
         <%}%>
     </table>

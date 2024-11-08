@@ -60,13 +60,6 @@ public class ActorServlet extends HttpServlet {
 
         switch (action) {
 
-
-            /*case "filtrar":
-
-                RequestDispatcher viewFiltro = request.getRequestDispatcher("listaPeliculas.jsp");
-                viewFiltro.forward(request,response);
-                break;*/
-
             case "create":
                 int idPelicula = Integer.parseInt(request.getParameter("id"));
 
