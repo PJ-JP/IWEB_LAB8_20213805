@@ -49,7 +49,7 @@ public class ActorDao extends DaoBase {
             pstmt.setString(3, actor.getApellido());
             pstmt.setInt(4, actor.getAnoNacimiento());
             pstmt.setInt(5, actor.getPremioOscar());
-
+            pstmt.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -61,11 +61,25 @@ public class ActorDao extends DaoBase {
 
             pstmt.setInt(1, id);
             pstmt.setInt(2, actor.getIdActor());
-
+            pstmt.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
+    }
+    public int ultimoID() {
+        int id = 0;
+        try (Connection conn = this.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("select idActor from actor order by idActor DESC;");) {
+            while (rs.next()) {
+                id = rs.getInt(1);
+                break;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
     }
 }

@@ -61,5 +61,6 @@
         <button type="submit">Editar Pelicula</button>
     </form>
 </table>
+<a href="PeliculaServlet"><button type="button">Regresar</button></a>
 </body>
 </html>

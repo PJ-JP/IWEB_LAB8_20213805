@@ -1,14 +1,6 @@
 package com.example.iweb_lab8.servlets;
 
 
-/*import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.ArrayList;*/
-
 import java.io.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -37,13 +29,20 @@ public class ActorServlet extends HttpServlet {
             case "read":
                 String id = request.getParameter("id");
                 ArrayList<Actor> list = actorDao.listarActores(Integer.parseInt(id));
-
+                Pelicula pelicula = peliculaDao.buscarPorId(Integer.parseInt(id));
                 if(list != null){
                     request.setAttribute("lista",list);
+                    /*request.getRequestDispatcher("listaActores.jsp").forward(request,response);*/
+                    request.setAttribute("pelicula",pelicula);
                     request.getRequestDispatcher("listaActores.jsp").forward(request,response);
+
                 }else{
                     response.sendRedirect(request.getContextPath() + "/PeliculasServlet");/*DetallesServlet*/
                 }
+                break;
+            case "create":
+                request.setAttribute("pelicula", peliculaDao.buscarPorId(Integer.parseInt(request.getParameter("id"))));
+                request.getRequestDispatcher("crearActor.jsp").forward(request,response);
                 break;
         }
     }
@@ -53,6 +52,7 @@ public class ActorServlet extends HttpServlet {
 
         String action = request.getParameter("action");
         PeliculaDao peliculaDao = new PeliculaDao();
+        ActorDao actorDao = new ActorDao();
 
         //listasDao listaDao = new listasDao();
         //ArrayList<genero> listaGeneros = listaDao.listarGeneros();
@@ -68,23 +68,23 @@ public class ActorServlet extends HttpServlet {
                 break;*/
 
             case "create":
-                int idPelicula = Integer.parseInt(request.getParameter("idPelicula"));
-                String titulo = request.getParameter("titulo");
-                String director = request.getParameter("director");
-                int anoPublicacion = Integer.parseInt(request.getParameter("anoPublicacion"));
-                double rating = Double.parseDouble(request.getParameter("rating"));
-                double boxOffice = Double.parseDouble(request.getParameter("boxOffice"));
+                int idPelicula = Integer.parseInt(request.getParameter("id"));
 
-                Pelicula pelicula = new Pelicula();
-                pelicula.setIdPelicula(idPelicula);
-                pelicula.setTitulo(titulo);
-                pelicula.setDirector(director);
-                pelicula.setAnoPublicacion(anoPublicacion);
-                pelicula.setRating(rating);
-                pelicula.setBoxOffice(boxOffice);
+                int idActor = actorDao.ultimoID()+1;
+                String nombre = request.getParameter("nombre");
+                String apellido = request.getParameter("apellido");
+                int anoNacimiento = Integer.parseInt(request.getParameter("anoNacimiento"));
+                int premioOscar = Integer.parseInt(request.getParameter("premioOscar"));
 
-                peliculaDao.actualizar(pelicula);
-                response.sendRedirect(request.getContextPath()+"/ActorServlet?action=lista");
+                Actor actor = new Actor();
+                actor.setIdActor(idActor);
+                actor.setNombre(nombre);
+                actor.setApellido(apellido);
+                actor.setAnoNacimiento(anoNacimiento);
+                actor.setPremioOscar(premioOscar);
+
+                actorDao.crearActor(actor,idPelicula);
+                response.sendRedirect(request.getContextPath()+"/ActorServlet?action=read&id="+idPelicula);
                 break;
         }
     }
