@@ -50,7 +50,7 @@
             for (Pelicula pelicula : listaPeliculas) {
         %>
         <tr>
-            <td><a href="viewPelicula?idPelicula=<%= pelicula.getIdPelicula() %>"><%=pelicula.getTitulo()%></a></td>
+            <td><a href="<%=request.getContextPath()%>/DetallesServlet?action=edit&id=<%= pelicula.getIdPelicula() %>"><%=pelicula.getTitulo()%></a></td>
             <td><%=pelicula.getDirector()%></td>
             <td><%=pelicula.getAnoPublicacion()%></td>
             <td><%=pelicula.getRating()%>/10</td>

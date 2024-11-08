@@ -99,6 +99,25 @@ public class PeliculaDao extends DaoBase{
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
 
+    public void actualizar(Pelicula pelicula){
+
+        String sql = "update pelicula set titulo = ?, director = ?, anoPublicacion = ?, rating = ?, boxOffice = ? where idPelicula = ?";
+
+        try (Connection conn = this.getConnection();
+        PreparedStatement pstmt = conn.prepareStatement(sql);){
+
+            pstmt.setString(1,pelicula.getTitulo());
+            pstmt.setString(2,pelicula.getDirector());
+            pstmt.setInt(3,pelicula.getAnoPublicacion());
+            pstmt.setDouble(4,pelicula.getRating());
+            pstmt.setDouble(5,pelicula.getBoxOffice());
+            pstmt.setInt(6,pelicula.getIdPelicula());
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
