@@ -1,21 +1,10 @@
 package com.example.iweb_lab8.servlets;
 
 
-/*import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.ArrayList;*/
-
 import java.io.*;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 import com.example.iweb_lab8.beans.Pelicula;
 import com.example.iweb_lab8.daos.PeliculaDao;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import jakarta.servlet.ServletException;
@@ -51,17 +40,7 @@ public class DetallesServlet extends HttpServlet {
         String action = request.getParameter("action");
         PeliculaDao peliculaDao = new PeliculaDao();
 
-        //listasDao listaDao = new listasDao();
-        //ArrayList<genero> listaGeneros = listaDao.listarGeneros();
-        //ArrayList<streaming> listaStreaming = listaDao.listarStraming();
-
         switch (action) {
-            /*case "filtrar":
-
-                RequestDispatcher viewFiltro = request.getRequestDispatcher("listaPeliculas.jsp");
-                viewFiltro.forward(request,response);
-                break;*/
-
             case "edit":
                 int idPelicula = Integer.parseInt(request.getParameter("idPelicula"));
                 String titulo = request.getParameter("titulo");

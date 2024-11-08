@@ -1,14 +1,6 @@
 package com.example.iweb_lab8.servlets;
 
 
-/*import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.ArrayList;*/
-
 import java.io.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -60,10 +52,6 @@ public class PeliculaServlet extends HttpServlet {
         String action = request.getParameter("action");
         PeliculaDao peliculaDao = new PeliculaDao();
 
-        //listasDao listaDao = new listasDao();
-        //ArrayList<genero> listaGeneros = listaDao.listarGeneros();
-        //ArrayList<streaming> listaStreaming = listaDao.listarStraming();
-
         switch (action) {
             case "filtrar":
                 String titulo = request.getParameter("titulo");
@@ -72,18 +60,6 @@ public class PeliculaServlet extends HttpServlet {
                 request.setAttribute("busqueda",titulo);
                 request.getRequestDispatcher("listaPeliculas.jsp").forward(request,response);
                 break;
-            /*
-            case "editar":
-                int idPelicula = Integer.parseInt(request.getParameter("idPelicula"));
-                String titulo = request.getParameter("titulo");
-                String director = request.getParameter("director");
-                int anoPublicacion = Integer.parseInt(request.getParameter("anoPublicacion"));
-                double rating = Double.parseDouble(request.getParameter("rating"));
-                double boxOffice = Double.parseDouble(request.getParameter("boxOffice"));
-                String genero = request.getParameter("genero");
-                peliculaDao.editarPelicula(idPelicula, titulo,director,anoPublicacion,rating,boxOffice);
-                response.sendRedirect(request.getContextPath()+"/listaPeliculas?action=listar");
-                break;*/
         }
 
     }

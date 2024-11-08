@@ -1,8 +1,6 @@
 package com.example.iweb_lab8.daos;
 
 import com.example.iweb_lab8.beans.Actor;
-import com.example.iweb_lab8.beans.Genero;
-import com.example.iweb_lab8.beans.Pelicula;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,7 +11,6 @@ public class ActorDao extends DaoBase {
 
         ArrayList<Actor> listaActores = new ArrayList<>();
 
-        /*String sql1="select e.titulo,p.idActor,a.Nombre,a.Apellido,a.anoNacimiento,a.premioOscar from actor a, protagonistas p, pelicula e where a.idActor=p.idActor AND e.idPelicula=p.idPelicula AND p.idPelicula=?;";*/
         String sql="select p.idActor,a.Nombre,a.Apellido,a.anoNacimiento,a.premioOscar from actor a, protagonistas p where a.idActor=p.idActor AND p.idPelicula=?";
 
         try (Connection conn = this.getConnection();

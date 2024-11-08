@@ -47,12 +47,6 @@
                 <input name="boxOffice" value="<%=pelicula.getBoxOffice()%>">
             </td>
         </tr>
-        <%--<tr>
-            <th>Genero</th>
-            <td contenteditable>
-                <input name="Genero" value="<%=pelicula.getGenero()%>">
-            </td>
-        </tr>--%>
         <tr>
             <th>Actores</th>
             <td><a href="<%=request.getContextPath()%>/ActorServlet?action=read&id=<%=pelicula.getIdPelicula() %>">Ver Actores</a></td>

@@ -37,7 +37,12 @@
   <tr>
     <th>Premio Oscar</th>
     <td contenteditable>
-      <input name="premioOscar" type="text">
+      <label for="pOscar"></label>
+      <select id="pOscar" name="premioOscar">
+        <option value="1">true</option>
+        <option value="0">false</option>
+      </select>
+
     </td>
   </tr>
   <button type="submit">Guardar</button>

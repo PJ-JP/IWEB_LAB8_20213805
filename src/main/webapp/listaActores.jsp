@@ -16,7 +16,7 @@
     <title>Title</title>
 </head>
 <body>
-<h1>Actores de: <%=pelicula.getTitulo()%></h1>
+<h1>Actores de <%=pelicula.getTitulo()%></h1>
 <table border="1">
   <tr>
     <th>idActor</th>

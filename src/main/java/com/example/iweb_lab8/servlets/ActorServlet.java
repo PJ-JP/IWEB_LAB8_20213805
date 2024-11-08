@@ -2,14 +2,12 @@ package com.example.iweb_lab8.servlets;
 
 
 import java.io.*;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.example.iweb_lab8.beans.Pelicula;
 import com.example.iweb_lab8.beans.Actor;
 import com.example.iweb_lab8.daos.ActorDao;
 import com.example.iweb_lab8.daos.PeliculaDao;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import jakarta.servlet.ServletException;
@@ -32,7 +30,6 @@ public class ActorServlet extends HttpServlet {
                 Pelicula pelicula = peliculaDao.buscarPorId(Integer.parseInt(id));
                 if(list != null){
                     request.setAttribute("lista",list);
-                    /*request.getRequestDispatcher("listaActores.jsp").forward(request,response);*/
                     request.setAttribute("pelicula",pelicula);
                     request.getRequestDispatcher("listaActores.jsp").forward(request,response);
 
@@ -51,12 +48,7 @@ public class ActorServlet extends HttpServlet {
         response.setContentType("text/html");
 
         String action = request.getParameter("action");
-        PeliculaDao peliculaDao = new PeliculaDao();
         ActorDao actorDao = new ActorDao();
-
-        //listasDao listaDao = new listasDao();
-        //ArrayList<genero> listaGeneros = listaDao.listarGeneros();
-        //ArrayList<streaming> listaStreaming = listaDao.listarStraming();
 
         switch (action) {
 

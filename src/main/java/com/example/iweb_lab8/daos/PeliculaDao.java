@@ -30,11 +30,6 @@ public class PeliculaDao extends DaoBase{
                 genero.setIdGenero(rs.getInt(8));
                 genero.setNombre(rs.getString(9));
                 pelicula.setGenero(genero);
-
-
-                //boolean validador= validarBorrado(movie);
-                //movie.setValidadorBorrado(validador);
-
                 listaPeliculas.add(pelicula);
 
             }
